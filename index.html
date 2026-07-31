@@ -1,749 +1,656 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leukós · Velas Artesanales</title>
-  <meta name="description" content="Velas artesanales hechas a mano y en familia. Cera de coco con aromas naturales. Cada vela es un momento de luz.">
-  <meta property="og:title" content="Leukós · Velas Artesanales">
-  <meta property="og:description" content="Date un gusto. Date un momento Leukós.">
-  <meta property="og:image" content="./img/ambiente-1.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <!-- Cinzel = Trajan Pro web-safe equivalent | Fraunces + Inter for body -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LEUKÓS · Velas Artesanales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --linen:      #EAE2D2;
-      --linen-deep: #DED3BC;
-      --card:       #FAF5E9;
-      --charcoal:   #2B2420;
-      --charcoal-s: #736A5E;
-      --honey:      #C4801E;
-      --honey-d:    #9C6417;
-      --sage:       #788758;
-      --concrete:   #9E9890;
-      --line:       #DCD0B4;
-      --white:      #FEFCF7;
-    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --linen:    #EAE2D2;
+      --linen-d:  #D8CEB8;
+      --honey:    #C4801E;
+      --honey-d:  #9C6417;
+      --sage:     #788758;
+      --sage-l:   #9AA87A;
+      --charcoal: #2B2420;
+      --charcoal-s: #5A4F48;
+    }
+
     html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--linen);
       color: var(--charcoal);
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    img { display: block; }
-
-    /* ── FLOATING WA ─────────────────────────────────── */
-    .wa-float {
-      position: fixed; bottom: 24px; right: 20px; z-index: 999;
-      background: #25D366; color: #fff;
-      display: flex; align-items: center; gap: 9px;
-      padding: 13px 20px; border-radius: 50px;
-      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 6px 24px rgba(37,211,102,0.35);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,211,102,0.45); }
 
     /* ── NAV ─────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 0 28px; height: 64px;
       display: flex; align-items: center; justify-content: space-between;
-      background: rgba(234,226,210,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
+      padding: 18px 32px;
+      transition: background .4s, backdrop-filter .4s;
     }
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .nav-logo-img {
-      width: 38px; height: 38px; border-radius: 50%; overflow: hidden;
-      box-shadow: 0 2px 8px rgba(43,36,32,0.2);
-      flex-shrink: 0;
+    nav.scrolled {
+      background: rgba(234,226,210,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(43,36,32,0.08);
     }
-    .nav-logo-img img { width: 100%; height: 100%; object-fit: cover; }
-    .nav-brand {
+    .nav-logo {
       font-family: 'Cinzel', serif;
-      font-size: 17px; font-weight: 500; letter-spacing: 2px;
-      color: var(--charcoal);
+      font-size: 15px; font-weight: 500; letter-spacing: 5px;
+      color: #fff; text-decoration: none;
+      transition: color .3s;
     }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav.scrolled .nav-logo { color: var(--charcoal); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
     .nav-links a {
-      color: var(--charcoal-s); font-size: 13px; font-weight: 500;
-      text-decoration: none; letter-spacing: 0.5px; transition: color .2s;
+      font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.85);
+      text-decoration: none; transition: color .2s;
     }
-    .nav-links a:hover { color: var(--charcoal); }
-    @media (max-width: 580px) { .nav-links { display: none; } }
+    nav.scrolled .nav-links a { color: var(--charcoal-s); }
+    .nav-links a:hover { color: var(--honey); }
+    .nav-cta {
+      background: rgba(255,255,255,0.15) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      color: #fff !important;
+      padding: 7px 18px; border-radius: 40px;
+      backdrop-filter: blur(8px);
+      transition: background .2s !important;
+    }
+    nav.scrolled .nav-cta {
+      background: var(--charcoal) !important;
+      border-color: transparent !important;
+      color: var(--linen) !important;
+    }
+    .nav-cta:hover { background: var(--honey) !important; }
 
-    /* ── HERO ────────────────────────────────────────── */
-    .hero {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 28px 70px;
-      background:
-        radial-gradient(ellipse at 20% 0%, rgba(196,128,30,0.11), transparent 50%),
-        radial-gradient(ellipse at 80% 100%, rgba(120,135,88,0.08), transparent 50%),
-        var(--linen);
-    }
-    .hero-logo-img {
-      width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
-      margin: 0 auto 28px;
-      box-shadow: 0 4px 20px rgba(43,36,32,0.18);
-    }
-    .hero-logo-img img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: 3.5px;
-      text-transform: uppercase; color: var(--honey); margin-bottom: 16px;
-    }
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(52px, 10vw, 110px);
-      font-weight: 500; letter-spacing: 8px;
-      line-height: 1.0; color: var(--charcoal);
-      margin-bottom: 10px;
-    }
-    .hero-subtitle {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(10px, 1.3vw, 13px);
-      font-weight: 400; letter-spacing: 6px;
-      color: var(--charcoal-s); margin-bottom: 28px;
-    }
-    .hero-tagline {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(18px, 2.5vw, 24px);
-      font-style: italic; color: var(--charcoal-s);
-      margin-bottom: 40px; line-height: 1.5;
-      max-width: 440px;
-    }
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-
-    .btn-primary {
-      background: var(--charcoal); color: var(--linen);
-      padding: 14px 28px; border-radius: 50px;
-      font-size: 13.5px; font-weight: 600; text-decoration: none;
-      letter-spacing: 0.3px; transition: background .2s, transform .15s;
-    }
-    .btn-primary:hover { background: var(--honey-d); transform: translateY(-1px); }
-    .btn-secondary {
-      background: transparent; color: var(--charcoal);
-      padding: 14px 28px; border-radius: 50px;
-      border: 1.5px solid rgba(43,36,32,0.35);
-      font-size: 13.5px; font-weight: 600; text-decoration: none;
-      letter-spacing: 0.3px; transition: all .2s;
-    }
-    .btn-secondary:hover { background: var(--charcoal); color: var(--linen); transform: translateY(-1px); }
-
-    /* ── FIRE VIDEO ──────────────────────────────────── */
-    .fire-video {
+    /* ── HERO VIDEO (pantalla completa) ──────────────── */
+    .hero-video-section {
       position: relative;
       width: 100%;
-      /* Aspect ratio del video — ajustar si el tuyo es diferente */
-      aspect-ratio: 16/9;
-      background: #0d0906;
+      height: 100svh;
+      min-height: 560px;
       overflow: hidden;
+      background: #080604;
     }
-    .fire-video video {
+    .hero-video-section video {
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
     }
-    /* Overlay suave arriba y abajo para que fluya con las secciones */
-    .fire-video::before,
-    .fire-video::after {
+    /* Overlay oscuro para que el texto sea legible */
+    .hero-video-section::before {
       content: '';
-      position: absolute; left: 0; right: 0;
-      height: 120px; z-index: 2; pointer-events: none;
-    }
-    .fire-video::before {
-      top: 0;
-      background: linear-gradient(to bottom, var(--linen), transparent);
-    }
-    .fire-video::after {
-      bottom: 0;
-      background: linear-gradient(to top, var(--charcoal), transparent);
-    }
-    /* Placeholder visible mientras no hay video */
-    .fire-video-placeholder {
       position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        160deg,
+        rgba(8,6,4,0.38) 0%,
+        rgba(8,6,4,0.22) 45%,
+        rgba(8,6,4,0.60) 100%
+      );
+    }
+    /* Gradiente suave abajo para fluir con la sección siguiente */
+    .hero-video-section::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      height: 180px;
+      background: linear-gradient(to top, var(--linen), transparent);
+    }
+    /* Contenido sobre el video */
+    .hero-content {
+      position: absolute; inset: 0; z-index: 3;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 16px;
-      background: radial-gradient(ellipse at center, #3a1f0a 0%, #0d0906 70%);
+      text-align: center;
+      padding: 0 28px;
     }
-    .fire-video-placeholder svg { opacity: 0.6; }
-    .fire-video-placeholder p {
-      font-family: 'Fraunces', serif; font-style: italic;
-      font-size: 15px; color: rgba(234,226,210,0.4);
-      letter-spacing: 1px;
+    .hero-logo-wrap {
+      width: 70px; height: 70px; border-radius: 50%; overflow: hidden;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      border: 1.5px solid rgba(255,255,255,0.2);
     }
-    /* Ocultar placeholder cuando el video carga */
-    .fire-video video ~ .fire-video-placeholder { display: none; }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-eyebrow {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--honey);
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(54px, 11vw, 116px);
+      font-weight: 500; letter-spacing: 10px;
+      line-height: 1.0; color: #FEFCF7;
+      text-shadow: 0 2px 32px rgba(0,0,0,0.35);
+      margin-bottom: 8px;
+    }
+    .hero-claim {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(9px, 1.2vw, 12px);
+      font-weight: 400; letter-spacing: 7px;
+      color: rgba(234,226,210,0.65);
+      margin-bottom: 26px;
+    }
+    .hero-tagline {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-style: italic; font-weight: 300;
+      color: rgba(234,226,210,0.88);
+      margin-bottom: 40px; line-height: 1.55;
+      max-width: 400px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-glass {
+      background: rgba(255,255,255,0.12);
+      color: #FEFCF7;
+      padding: 13px 26px; border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+      transition: background .2s, transform .15s;
+    }
+    .btn-glass:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+    .btn-honey {
+      background: var(--honey); color: #fff;
+      padding: 13px 26px; border-radius: 50px;
+      border: none;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 18px rgba(196,128,30,0.4);
+    }
+    .btn-honey:hover { background: var(--honey-d); transform: translateY(-1px); }
+    /* Flecha scroll */
+    .hero-scroll {
+      position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+      z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(234,226,210,0.45); font-size: 10px; letter-spacing: 2.5px;
+      text-transform: uppercase;
+      animation: floatDown 2.6s ease-in-out infinite;
+    }
+    @keyframes floatDown {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: .45; }
+      50% { transform: translateX(-50%) translateY(8px); opacity: .7; }
+    }
 
-    /* ── MARQUEE STRIP ───────────────────────────────── */
-    .marquee-strip {
+    /* ── MARQUEE ─────────────────────────────────────── */
+    .marquee-wrap {
       background: var(--charcoal);
-      padding: 14px 0;
-      overflow: hidden;
-      white-space: nowrap;
+      padding: 14px 0; overflow: hidden;
     }
-    .marquee-inner {
-      display: inline-block;
+    .marquee-track {
+      display: flex; width: max-content;
       animation: marquee 22s linear infinite;
     }
-    .marquee-inner span {
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      display: flex; align-items: center; gap: 20px;
+      padding: 0 28px; white-space: nowrap;
       font-family: 'Cinzel', serif;
-      font-size: 12px; font-weight: 400;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(234,226,210,0.6);
-      margin: 0 28px;
+      font-size: 11px; letter-spacing: 4px; font-weight: 400;
+      color: rgba(234,226,210,0.55);
     }
-    .marquee-inner span.dot { color: var(--honey); margin: 0 10px; font-size: 10px; }
+    .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--honey); opacity: .5; }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ── SECTION BASE ────────────────────────────────── */
-    section { padding: 90px 28px; }
-    .container { max-width: 920px; margin: 0 auto; }
-    .section-label {
-      display: block;
-      font-size: 11px; font-weight: 700; letter-spacing: 3.5px;
-      text-transform: uppercase; color: var(--honey); margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(26px, 4vw, 38px);
-      font-weight: 500; letter-spacing: 1.5px;
-      line-height: 1.2; color: var(--charcoal);
-      margin-bottom: 16px;
-    }
-    .section-text {
-      font-size: 16px; line-height: 1.8; color: var(--charcoal-s);
-    }
-
     /* ── STORY ───────────────────────────────────────── */
-    .story { background: var(--white); }
-    .story-grid {
+    .story {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: center; margin-top: 56px;
+      gap: 0; min-height: 520px;
     }
-    @media (max-width: 680px) { .story-grid { grid-template-columns: 1fr; gap: 36px; } }
     .story-img {
-      border-radius: 24px; overflow: hidden;
-      aspect-ratio: 4/5;
-      box-shadow: 0 16px 48px rgba(43,36,32,0.14);
+      position: relative; overflow: hidden;
     }
-    .story-img img { width: 100%; height: 100%; object-fit: cover; }
-    .story-content {}
-    .greek-block { margin-bottom: 28px; }
-    .greek-word {
+    .story-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .story-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--linen));
+    }
+    .story-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 64px 60px 64px 48px;
+    }
+    .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--honey);
+      margin-bottom: 20px;
+    }
+    .story-text h2 {
       font-family: 'Cinzel', serif;
-      font-size: 30px; font-weight: 400;
-      letter-spacing: 3px; color: var(--honey);
-      display: block; margin-bottom: 6px;
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 400; letter-spacing: 2px;
+      line-height: 1.25; color: var(--charcoal);
+      margin-bottom: 22px;
     }
-    .greek-def { font-size: 13px; color: var(--charcoal-s); letter-spacing: 0.5px; }
-    .story-content .section-text { margin-bottom: 18px; }
-    .story-stats {
-      display: flex; gap: 0;
-      margin-top: 36px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
+    .story-text p {
+      font-size: 15px; line-height: 1.75;
+      color: var(--charcoal-s); margin-bottom: 14px;
     }
-    .stat {
-      flex: 1; padding: 20px 18px; text-align: center;
-      border-right: 1px solid var(--line);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-n {
-      font-family: 'Cinzel', serif;
-      font-size: 26px; font-weight: 500;
-      color: var(--honey); display: block; margin-bottom: 4px;
-    }
-    .stat-l { font-size: 12px; color: var(--charcoal-s); line-height: 1.4; }
-
-    /* ── ATMOSPHERE BAND ─────────────────────────────── */
-    .atmosphere {
-      padding: 0; position: relative;
-      height: 480px; overflow: hidden;
-    }
-    @media (max-width: 600px) { .atmosphere { height: 320px; } }
-    .atmosphere img {
-      width: 100%; height: 100%; object-fit: cover;
-      object-position: center 60%;
-    }
-    .atmosphere-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(43,36,32,0.65) 0%, rgba(43,36,32,0.15) 60%, transparent 100%);
-      display: flex; align-items: center;
-      padding: 0 64px;
-    }
-    @media (max-width: 600px) { .atmosphere-overlay { padding: 0 28px; } }
-    .atmosphere-quote {
-      max-width: 440px;
-    }
-    .atmosphere-quote blockquote {
+    .story-text p em {
       font-family: 'Fraunces', serif;
-      font-size: clamp(20px, 3vw, 28px);
-      font-style: italic; font-weight: 400;
-      color: var(--linen); line-height: 1.5;
-      margin-bottom: 16px;
+      font-style: italic; font-size: 17px;
+      color: var(--charcoal);
     }
-    .atmosphere-quote cite {
-      font-size: 12px; letter-spacing: 2.5px;
-      text-transform: uppercase; color: rgba(234,226,210,0.55);
-      font-style: normal;
+
+    /* ── ATMOSPHERE IMG ─────────────────────────────── */
+    .atm-img {
+      position: relative; height: 70vh; min-height: 400px; overflow: hidden;
+    }
+    .atm-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .atm-img::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, var(--linen) 0%, transparent 20%, transparent 80%, var(--charcoal) 100%);
     }
 
     /* ── PRODUCTS ────────────────────────────────────── */
-    .products { background: var(--linen); }
-    .products-intro {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 48px; flex-wrap: wrap; gap: 16px;
+    .products {
+      background: var(--charcoal);
+      padding: 90px 40px;
+    }
+    .section-header {
+      text-align: center; margin-bottom: 56px;
+    }
+    .section-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 400; letter-spacing: 4px;
+      color: var(--linen); margin-bottom: 14px;
+    }
+    .section-header p {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 17px; color: rgba(234,226,210,0.55);
     }
     .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1000px; margin: 0 auto;
     }
-    @media (max-width: 700px) { .products-grid { grid-template-columns: 1fr; } }
-    @media (min-width: 701px) and (max-width: 900px) { .products-grid { grid-template-columns: 1fr 1fr; } }
-
     .product-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 22px; overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(234,226,210,0.1);
+      border-radius: 20px; overflow: hidden;
+      transition: transform .25s, border-color .25s;
     }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 18px 48px rgba(43,36,32,0.13); }
+    .product-card:hover { transform: translateY(-4px); border-color: rgba(196,128,30,0.35); }
     .product-img {
-      aspect-ratio: 3/4; overflow: hidden;
-      background: var(--linen-deep);
+      position: relative; aspect-ratio: 3/4; overflow: hidden;
+      background: #1a120c;
     }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
     .product-card:hover .product-img img { transform: scale(1.04); }
-    .product-body { padding: 20px 20px 22px; }
-    .product-line {
-      font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
-      text-transform: uppercase; color: var(--sage); margin-bottom: 6px;
+    .product-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--honey); color: #fff;
+      font-size: 9.5px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 10px; border-radius: 20px;
     }
+    .product-info { padding: 22px 22px 26px; }
     .product-name {
       font-family: 'Cinzel', serif;
-      font-size: 18px; font-weight: 500; letter-spacing: 1px;
-      color: var(--charcoal); margin-bottom: 8px;
+      font-size: 14px; font-weight: 500; letter-spacing: 2.5px;
+      color: var(--linen); margin-bottom: 5px;
     }
-    .product-desc {
-      font-size: 13.5px; color: var(--charcoal-s);
-      line-height: 1.6; margin-bottom: 18px;
+    .product-weight {
+      font-size: 12px; color: rgba(234,226,210,0.4);
+      letter-spacing: 1px; margin-bottom: 16px;
     }
-    .product-footer { display: flex; align-items: center; justify-content: space-between; }
     .product-price {
       font-family: 'Cinzel', serif;
-      font-size: 20px; font-weight: 500; color: var(--charcoal);
+      font-size: 22px; font-weight: 500;
+      color: var(--honey); margin-bottom: 18px;
     }
-    .product-price small { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; color: var(--charcoal-s); }
     .btn-buy {
+      display: block; width: 100%; text-align: center;
       background: var(--honey); color: #fff;
-      padding: 9px 18px; border-radius: 50px;
-      font-size: 12.5px; font-weight: 600; text-decoration: none;
-      transition: background .2s;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.5px; transition: background .2s;
     }
     .btn-buy:hover { background: var(--honey-d); }
-    .products-note {
-      text-align: center; margin-top: 28px;
-      font-size: 13.5px; color: var(--charcoal-s);
-    }
-    .products-note a { color: var(--honey); font-weight: 600; text-decoration: none; }
 
-    /* ── AROMAS ──────────────────────────────────────── */
-    .aromas { background: var(--charcoal); }
-    .aromas .section-label { color: var(--honey); }
-    .aromas .section-title { color: var(--linen); }
-    .aromas .section-text { color: rgba(234,226,210,0.6); max-width: 520px; margin-bottom: 44px; }
+    /* ── AROMAS ─────────────────────────────────────── */
+    .aromas {
+      padding: 90px 40px;
+      background: var(--linen);
+      text-align: center;
+    }
+    .aromas h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 400; letter-spacing: 4px;
+      color: var(--charcoal); margin-bottom: 14px;
+    }
+    .aromas-intro {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 17px; color: var(--charcoal-s);
+      margin-bottom: 50px;
+    }
     .aromas-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      display: flex; flex-wrap: wrap;
+      gap: 12px; justify-content: center;
+      max-width: 700px; margin: 0 auto;
     }
-    @media (max-width: 560px) { .aromas-grid { grid-template-columns: 1fr 1fr; } }
-    .aroma-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 18px; padding: 28px 16px;
-      text-align: center; transition: background .2s;
-    }
-    .aroma-card:hover { background: rgba(255,255,255,0.10); }
-    .aroma-icon { font-size: 30px; margin-bottom: 12px; }
-    .aroma-name {
-      font-family: 'Cinzel', serif;
-      font-size: 15px; font-weight: 400;
-      letter-spacing: 1px; color: var(--linen);
-      margin-bottom: 4px;
-    }
-    .aroma-note { font-size: 11.5px; color: rgba(234,226,210,0.45); letter-spacing: 0.5px; }
-
-    /* ── SECOND ATMOSPHERE (dark) ────────────────────── */
-    .atmosphere-2 {
-      padding: 0; height: 440px; overflow: hidden; position: relative;
-    }
-    @media (max-width: 600px) { .atmosphere-2 { height: 280px; } }
-    .atmosphere-2 img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    .atmosphere-2-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to left, rgba(43,36,32,0.7) 0%, rgba(43,36,32,0.1) 60%, transparent 100%);
-      display: flex; align-items: center; justify-content: flex-end;
-      padding: 0 64px;
-    }
-    @media (max-width: 600px) { .atmosphere-2-overlay { padding: 0 28px; justify-content: center; } }
-    .atmosphere-2 blockquote {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(17px, 2.5vw, 24px);
-      font-style: italic; color: var(--linen);
-      line-height: 1.55; max-width: 380px; text-align: right;
-    }
-    @media (max-width: 600px) { .atmosphere-2 blockquote { text-align: center; } }
-
-    /* ── CTA ─────────────────────────────────────────── */
-    .cta-section { background: var(--white); text-align: center; }
-    .cta-section .section-title { margin: 0 auto 14px; }
-    .cta-section .section-text { max-width: 520px; margin: 0 auto 38px; }
-    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .btn-wa {
-      background: #25D366; color: #fff;
-      padding: 15px 30px; border-radius: 50px;
-      font-size: 14.5px; font-weight: 600; text-decoration: none;
-      display: flex; align-items: center; gap: 9px;
-      transition: background .2s, transform .15s;
-    }
-    .btn-wa:hover { background: #1da851; transform: translateY(-2px); }
-    .btn-mp {
+    .aroma-tag {
       background: var(--charcoal); color: var(--linen);
-      padding: 15px 30px; border-radius: 50px;
-      font-size: 14.5px; font-weight: 600; text-decoration: none;
-      display: flex; align-items: center; gap: 9px;
-      transition: background .2s, transform .15s;
+      padding: 9px 20px; border-radius: 40px;
+      font-size: 12.5px; letter-spacing: 1.5px;
     }
-    .btn-mp:hover { background: var(--honey-d); transform: translateY(-2px); }
-    .cta-note { font-size: 13px; color: var(--charcoal-s); }
 
-    /* ── FOOTER ──────────────────────────────────────── */
-    footer {
+    /* ── ATMOSPHERE 2 ─────────────────────────────── */
+    .atm2 {
+      position: relative; height: 60vh; min-height: 380px; overflow: hidden;
+    }
+    .atm2 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .atm2::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: rgba(43,36,32,0.45);
+    }
+    .atm2-text {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 0 28px;
+    }
+    .atm2-text blockquote {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: clamp(22px, 3.5vw, 38px); font-weight: 300;
+      color: var(--linen); line-height: 1.45;
+      max-width: 680px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.35);
+    }
+    .atm2-text cite {
+      font-style: normal; font-size: 11px; letter-spacing: 4px;
+      color: var(--honey); margin-top: 20px; display: block;
+      text-transform: uppercase;
+    }
+
+    /* ── CTA FINAL ───────────────────────────────────── */
+    .cta-section {
       background: var(--charcoal);
-      padding: 52px 28px 40px; text-align: center;
+      padding: 100px 28px;
+      text-align: center;
     }
-    .footer-logo-wrap {
-      display: flex; align-items: center; justify-content: center;
-      gap: 14px; margin-bottom: 10px;
-    }
-    .footer-logo-img {
-      width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
-    }
-    .footer-logo-img img { width: 100%; height: 100%; object-fit: cover; }
-    .footer-brand {
+    .cta-section h2 {
       font-family: 'Cinzel', serif;
-      font-size: 22px; font-weight: 500;
-      letter-spacing: 4px; color: var(--linen);
+      font-size: clamp(26px, 4vw, 44px);
+      font-weight: 400; letter-spacing: 3px;
+      color: var(--linen); margin-bottom: 16px;
     }
-    .footer-tagline {
-      font-family: 'Fraunces', serif;
-      font-size: 14px; font-style: italic;
-      color: rgba(234,226,210,0.45); margin-bottom: 32px;
+    .cta-section p {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 19px; color: rgba(234,226,210,0.55);
+      margin-bottom: 44px;
     }
-    .footer-links {
-      display: flex; gap: 28px; justify-content: center;
-      flex-wrap: wrap; margin-bottom: 32px;
+    .cta-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: #22c55e; color: #fff;
+      padding: 15px 28px; border-radius: 50px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.3px; transition: background .2s, transform .15s;
     }
+    .btn-wa:hover { background: #16a34a; transform: translateY(-1px); }
+    .btn-mp {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--honey); color: #fff;
+      padding: 15px 28px; border-radius: 50px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.3px; transition: background .2s, transform .15s;
+    }
+    .btn-mp:hover { background: var(--honey-d); transform: translateY(-1px); }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: #1a100a;
+      padding: 40px 32px 32px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 13px; letter-spacing: 6px;
+      color: rgba(234,226,210,0.45);
+    }
+    .footer-links { display: flex; gap: 24px; }
     .footer-links a {
-      color: rgba(234,226,210,0.55); font-size: 13px;
-      text-decoration: none; transition: color .2s;
-      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: rgba(234,226,210,0.3);
+      text-decoration: none; letter-spacing: 1px;
+      transition: color .2s;
     }
-    .footer-links a:hover { color: var(--linen); }
-    .footer-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.1); margin: 0 auto 24px; }
-    .footer-bottom { font-size: 11.5px; color: rgba(234,226,210,0.25); letter-spacing: 0.5px; }
+    .footer-links a:hover { color: var(--honey); }
+    .footer-copy {
+      font-size: 11px; color: rgba(234,226,210,0.18);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── WA FLOTANTE ─────────────────────────────────── */
+    .wa-float {
+      position: fixed; bottom: 26px; right: 26px; z-index: 200;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #22c55e;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 18px rgba(34,197,94,0.45);
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-float:hover { transform: scale(1.09); box-shadow: 0 6px 26px rgba(34,197,94,0.55); }
+    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 760px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .story { grid-template-columns: 1fr; }
+      .story-img { height: 280px; }
+      .story-img::after { background: linear-gradient(to bottom, transparent 70%, var(--linen)); }
+      .story-text { padding: 40px 28px; }
+      .products-grid { grid-template-columns: 1fr; max-width: 340px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- FLOATING WA -->
-  <a href="https://w.app/leukos" target="_blank" rel="noopener" class="wa-float">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    WhatsApp
+  <!-- WA flotante -->
+  <a href="https://w.app/leukos" target="_blank" class="wa-float" aria-label="WhatsApp Leukós">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
   </a>
 
   <!-- NAV -->
-  <nav>
-    <a href="#inicio" class="nav-logo">
-      <div class="nav-logo-img">
-        <img src="./img/logo.png" alt="Leukós" loading="eager" />
-      </div>
-      <span class="nav-brand">LEUKÓS</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#productos">Velas</a></li>
-      <li><a href="#aromas">Aromas</a></li>
-      <li><a href="#comprar">Comprar</a></li>
-    </ul>
+  <nav id="main-nav">
+    <a href="#" class="nav-logo">LEUKÓS</a>
+    <div class="nav-links">
+      <a href="#productos">Velas</a>
+      <a href="#historia">Historia</a>
+      <a href="#productos" class="nav-cta">Comprar</a>
+    </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="inicio">
-    <div class="hero-logo-img">
-      <img src="./img/logo.png" alt="Leukós" loading="eager" />
+  <!-- HERO: VIDEO PANTALLA COMPLETA -->
+  <section class="hero-video-section">
+    <video autoplay muted loop playsinline>
+      <source src="./video/fuego2.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="./img/logo.png" alt="Leukós"/>
+      </div>
+      <p class="hero-eyebrow">Velas artesanales · Santiago de Chile</p>
+      <h1 class="hero-title">LEUKÓS</h1>
+      <p class="hero-claim">Cera de coco · Aromas naturales</p>
+      <p class="hero-tagline">Date un momento Leukós.</p>
+      <div class="hero-ctas">
+        <a href="https://link.mercadopago.cl/leukosvelas" class="btn-honey" target="_blank">Comprar ahora</a>
+        <a href="https://w.app/leukos" class="btn-glass" target="_blank">Escribirnos</a>
+      </div>
     </div>
-    <p class="hero-eyebrow">Velas Artesanales · Hechas en familia</p>
-    <h1>LEUKÓS</h1>
-    <p class="hero-subtitle">Velas Artesanales</p>
-    <p class="hero-tagline">Date un gusto.<br>Date un momento Leukós.</p>
-    <div class="hero-ctas">
-      <a href="#productos" class="btn-primary">Ver velas</a>
-      <a href="#comprar" class="btn-secondary">Cómo comprar</a>
+    <div class="hero-scroll">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
     </div>
   </section>
 
-  <!-- FIRE VIDEO -->
-  <!-- Pon tu video en ./video/fuego.mp4 (720p recomendado, < 20 MB) -->
-  <div class="fire-video">
-    <video autoplay muted loop playsinline preload="none">
-      <source src="./video/fuego2.mp4" type="video/mp4">
-    </video>
-    <!-- Este placeholder desaparece automáticamente cuando el video existe -->
-    <div class="fire-video-placeholder">
-      <svg width="48" height="72" viewBox="0 0 48 72" fill="none">
-        <path d="M24 4C24 4 8 22 8 40C8 52.15 15.16 62 24 62C32.84 62 40 52.15 40 40C40 22 24 4 24 4Z" fill="#C4801E" opacity="0.3"/>
-        <path d="M24 16C24 16 12 31 12 43C12 49.63 17.37 55 24 55C30.63 55 36 49.63 36 43C36 31 24 16 24 16Z" fill="#C4801E" opacity="0.55"/>
-        <path d="M24 28C24 28 16 38 16 45C16 49.42 19.58 53 24 53C28.42 53 32 49.42 32 45C32 38 24 28 24 28Z" fill="#C4801E" opacity="0.85"/>
-        <rect x="22" y="62" width="4" height="8" rx="2" fill="#786050" opacity="0.5"/>
-      </svg>
-      <p>Video de fuego · añadir ./video/fuego.mp4</p>
-    </div>
-  </div>
-
   <!-- MARQUEE -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-inner">
-      <span>LEUKÓS</span><span class="dot">✦</span>
-      <span>Velas Artesanales</span><span class="dot">✦</span>
-      <span>Cera de Coco</span><span class="dot">✦</span>
-      <span>Hecho a mano</span><span class="dot">✦</span>
-      <span>Hijos de la Luz</span><span class="dot">✦</span>
-      <span>Santiago, Chile</span><span class="dot">✦</span>
-      <span>LEUKÓS</span><span class="dot">✦</span>
-      <span>Velas Artesanales</span><span class="dot">✦</span>
-      <span>Cera de Coco</span><span class="dot">✦</span>
-      <span>Hecho a mano</span><span class="dot">✦</span>
-      <span>Hijos de la Luz</span><span class="dot">✦</span>
-      <span>Santiago, Chile</span><span class="dot">✦</span>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- duplicado para loop continuo -->
+      <span class="marquee-item">Cera de coco <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Aromas naturales <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envío a todo el país <span class="marquee-dot"></span></span>
+      <span class="marquee-item">λευκός · luz <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Cera de coco <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Aromas naturales <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envío a todo el país <span class="marquee-dot"></span></span>
+      <span class="marquee-item">λευκός · luz <span class="marquee-dot"></span></span>
     </div>
   </div>
 
-  <!-- STORY -->
-  <section class="story" id="nosotros">
-    <div class="container">
-      <span class="section-label">Quiénes somos</span>
-      <h2 class="section-title">Luz hecha<br>con las manos</h2>
-      <div class="story-grid">
-        <div class="story-img">
-          <img src="./img/ambiente-2.jpg" alt="Ambiente Leukós" loading="lazy" />
-        </div>
-        <div class="story-content">
-          <div class="greek-block">
-            <span class="greek-word">LEUKÓS</span>
-            <p class="greek-def">λευκός · griego bíblico · "luz blanca, resplandeciente"</p>
-          </div>
-          <p class="section-text" style="margin-bottom:18px;">
-            Nos llamamos Leukos porque creemos que la luz es lo que somos. Cada vela nace de nuestras manos y de nuestra fe — hecha en familia, con cuidado, sin apuro.
-          </p>
-          <p class="section-text" style="margin-bottom:18px;">
-            No buscamos llenar solo un espacio. Queremos que un momento Leukós sea un momento diferente: de conversación profunda, de silencio interior, de presencia.
-          </p>
-          <p class="section-text">
-            Trabajamos con cera de coco 100% natural, en frascos de vidrio. Cada pieza, única.
-          </p>
-          <div class="story-stats">
-            <div class="stat">
-              <span class="stat-n">100%</span>
-              <span class="stat-l">Hecho a mano<br>en familia</span>
-            </div>
-            <div class="stat">
-              <span class="stat-n">4</span>
-              <span class="stat-l">Aromas<br>naturales</span>
-            </div>
-            <div class="stat">
-              <span class="stat-n">3</span>
-              <span class="stat-l">Tamaños<br>disponibles</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- HISTORIA -->
+  <section class="story" id="historia">
+    <div class="story-img">
+      <img src="./img/ambiente-2.jpg" alt="Vela Leukós" loading="lazy"/>
+    </div>
+    <div class="story-text">
+      <p class="section-label">Nuestra historia</p>
+      <h2>Luz artesanal,<br>hecha con propósito</h2>
+      <p>Leukós nace del griego λευκός — <em>luz, blancura, resplandor</em>. La misma raíz de "luz" en español. No es una coincidencia: cada vela que hacemos es una pequeña fuente de luz que invita a detenerse.</p>
+      <p>Elaboramos nuestras velas a mano en Santiago, con cera de coco natural, mechas de algodón y aromas pensados para crear ambientes, no solo para oler bien.</p>
     </div>
   </section>
 
   <!-- ATMOSPHERE 1 -->
-  <div class="atmosphere">
-    <img src="./img/ambiente-1.jpg" alt="Vela Leukós encendida" loading="lazy" />
-    <div class="atmosphere-overlay">
-      <div class="atmosphere-quote">
-        <blockquote>"A veces una pequeña luz basta para dar el siguiente paso."</blockquote>
-        <cite>— Leukós · Hijos de la Luz</cite>
-      </div>
-    </div>
+  <div class="atm-img">
+    <img src="./img/ambiente-1.jpg" alt="Ambiente Leukós" loading="lazy"/>
   </div>
 
-  <!-- PRODUCTS -->
+  <!-- PRODUCTOS -->
   <section class="products" id="productos">
-    <div class="container">
-      <div class="products-intro">
-        <div>
-          <span class="section-label">Catálogo 2026</span>
-          <h2 class="section-title">Nuestras velas</h2>
+    <div class="section-header">
+      <p class="section-label" style="color:var(--honey)">Colección</p>
+      <h2>Nuestras velas</h2>
+      <p>Cada tamaño, un momento distinto.</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <img src="./img/vela-mediana.jpg" alt="Vela Pequeña"/>
+          <span class="product-badge">Más vendida</span>
         </div>
-        <p class="section-text" style="max-width:320px; font-size:14px;">
-          Cera de coco 100% natural. El aroma y el color no afectan el precio — solo el tamaño.
-        </p>
+        <div class="product-info">
+          <div class="product-name">PEQUEÑA</div>
+          <div class="product-weight">160 g · ~40 h de duración</div>
+          <div class="product-price">$9.000</div>
+          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+        </div>
       </div>
-      <div class="products-grid">
 
-        <div class="product-card">
-          <div class="product-img">
-            <img src="./img/vela-mediana.jpg" alt="Vela Leukós Pequeña" loading="lazy" />
-          </div>
-          <div class="product-body">
-            <p class="product-line">Cera de Coco · 160g</p>
-            <h3 class="product-name">Pequeña</h3>
-            <p class="product-desc">Frasco de vidrio ámbar con tapa dorada. Perfecta para escritorio, mesa de noche o regalo.</p>
-            <div class="product-footer">
-              <div class="product-price">$9.000 <small>CLP</small></div>
-              <a href="https://link.mercadopago.cl/leukosvelas" target="_blank" rel="noopener" class="btn-buy">Comprar</a>
-            </div>
-          </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="./img/vela-negra.png" alt="Vela Mediana"/>
         </div>
-
-        <div class="product-card">
-          <div class="product-img">
-            <img src="./img/vela-negra.png" alt="Vela Leukós Mediana" loading="lazy" />
-          </div>
-          <div class="product-body">
-            <p class="product-line">Cera de Coco · 300g</p>
-            <h3 class="product-name">Mediana</h3>
-            <p class="product-desc">Mayor presencia, mayor duración. Ideal para el living o como centro de mesa.</p>
-            <div class="product-footer">
-              <div class="product-price">$16.000 <small>CLP</small></div>
-              <a href="https://link.mercadopago.cl/leukosvelas" target="_blank" rel="noopener" class="btn-buy">Comprar</a>
-            </div>
-          </div>
+        <div class="product-info">
+          <div class="product-name">MEDIANA</div>
+          <div class="product-weight">300 g · ~70 h de duración</div>
+          <div class="product-price">$16.000</div>
+          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
         </div>
-
-        <div class="product-card">
-          <div class="product-img">
-            <img src="./img/vela-blanca.png" alt="Vela Leukós Grande" loading="lazy" />
-          </div>
-          <div class="product-body">
-            <p class="product-line">Cera de Coco · 520g</p>
-            <h3 class="product-name">Grande</h3>
-            <p class="product-desc">La pieza principal. Presencia imponente, aroma que llena el espacio.</p>
-            <div class="product-footer">
-              <div class="product-price">$20.000 <small>CLP</small></div>
-              <a href="https://link.mercadopago.cl/leukosvelas" target="_blank" rel="noopener" class="btn-buy">Comprar</a>
-            </div>
-          </div>
-        </div>
-
       </div>
-      <p class="products-note">
-        ¿Quieres elegir aroma, color o combinar tamaños?
-        <a href="https://w.app/leukos" target="_blank">Escríbenos por WhatsApp →</a>
-      </p>
+
+      <div class="product-card">
+        <div class="product-img">
+          <img src="./img/vela-blanca.png" alt="Vela Grande"/>
+        </div>
+        <div class="product-info">
+          <div class="product-name">GRANDE</div>
+          <div class="product-weight">520 g · ~120 h de duración</div>
+          <div class="product-price">$20.000</div>
+          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- AROMAS -->
-  <section class="aromas" id="aromas">
-    <div class="container">
-      <span class="section-label">Aromas disponibles</span>
-      <h2 class="section-title">Elige tu aroma</h2>
-      <p class="section-text">Todos formulados para cera de coco. El aroma no afecta el precio.</p>
-      <div class="aromas-grid">
-        <div class="aroma-card">
-          <div class="aroma-icon">🌿</div>
-          <div class="aroma-name">Verbena</div>
-          <div class="aroma-note">Fresco · herbal</div>
-        </div>
-        <div class="aroma-card">
-          <div class="aroma-icon">🌸</div>
-          <div class="aroma-name">Jazmín-Violeta</div>
-          <div class="aroma-note">Floral · dulce</div>
-        </div>
-        <div class="aroma-card">
-          <div class="aroma-icon">🌫️</div>
-          <div class="aroma-name">Mirra</div>
-          <div class="aroma-note">Cálido · terroso</div>
-        </div>
-        <div class="aroma-card">
-          <div class="aroma-icon">💜</div>
-          <div class="aroma-name">Lavanda</div>
-          <div class="aroma-note">Relajante · clásico</div>
-        </div>
-      </div>
+  <section class="aromas">
+    <p class="section-label">Aromaterapia natural</p>
+    <h2>Elige tu aroma</h2>
+    <p class="aromas-intro">Todos disponibles en cualquier tamaño.</p>
+    <div class="aromas-grid">
+      <span class="aroma-tag">Vainilla & Sándalo</span>
+      <span class="aroma-tag">Lavanda & Jazmín</span>
+      <span class="aroma-tag">Bergamota & Cedro</span>
+      <span class="aroma-tag">Palo Santo</span>
+      <span class="aroma-tag">Naranja & Canela</span>
+      <span class="aroma-tag">Eucalipto & Menta</span>
+      <span class="aroma-tag">Rosa & Musgo blanco</span>
+      <span class="aroma-tag">Sin aroma</span>
     </div>
   </section>
 
   <!-- ATMOSPHERE 2 -->
-  <div class="atmosphere-2">
-    <img src="./img/vela-azul.png" alt="Vela Leukós encendida" loading="lazy" />
-    <div class="atmosphere-2-overlay">
-      <blockquote>"Creemos en la luz que se comparte,<br>en el silencio que conecta,<br>en el momento que importa."</blockquote>
+  <div class="atm2">
+    <img src="./img/vela-azul.png" alt="Vela Leukós" loading="lazy"/>
+    <div class="atm2-text">
+      <blockquote>«Date un momento.<br>Solo tuyo.»</blockquote>
+      <cite>Leukós · λευκός</cite>
     </div>
   </div>
 
-  <!-- CTA -->
-  <section class="cta-section" id="comprar">
-    <div class="container">
-      <span class="section-label" style="text-align:center;">¿Cómo comprar?</span>
-      <h2 class="section-title">Simple y rápido</h2>
-      <p class="section-text">
-        Escríbenos por WhatsApp y coordinamos — te confirmamos stock, aroma y color disponible. O paga directo por Mercado Pago.
-      </p>
-      <div class="cta-buttons">
-        <a href="https://w.app/leukos" target="_blank" rel="noopener" class="btn-wa">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Pedir por WhatsApp
-        </a>
-        <a href="https://link.mercadopago.cl/leukosvelas" target="_blank" rel="noopener" class="btn-mp">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          Pagar con Mercado Pago
-        </a>
-      </div>
-      <p class="cta-note">📦 Despacho · Retiro en Colina · Pagos seguros</p>
+  <!-- CTA FINAL -->
+  <section class="cta-section">
+    <p class="section-label" style="color:var(--honey)">Pedidos y consultas</p>
+    <h2>Enciende tu momento</h2>
+    <p>Escríbenos o compra directo con pago seguro.</p>
+    <div class="cta-btns">
+      <a href="https://w.app/leukos" class="btn-wa" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
+      <a href="https://link.mercadopago.cl/leukosvelas" class="btn-mp" target="_blank">
+        Pagar con Mercado Pago
+      </a>
     </div>
+    <p style="margin-top:28px; font-size:12px; color:rgba(234,226,210,0.25); letter-spacing:1px;">
+      <a href="https://www.instagram.com/leukos.velas/" target="_blank" style="color:rgba(234,226,210,0.35); text-decoration:none;">@leukos.velas</a>
+    </p>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo-wrap">
-      <div class="footer-logo-img">
-        <img src="./img/logo.png" alt="Leukós" loading="lazy" />
-      </div>
-      <span class="footer-brand">LEUKÓS</span>
-    </div>
-    <p class="footer-tagline">λευκός · Velas Artesanales · Hijos de la Luz</p>
+    <div class="footer-logo">LEUKÓS</div>
     <div class="footer-links">
-      <a href="https://www.instagram.com/leukos.velas/" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        @leukos.velas
-      </a>
-      <a href="https://w.app/leukos" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="mailto:velasleukos@gmail.com">velasleukos@gmail.com</a>
+      <a href="https://www.instagram.com/leukos.velas/" target="_blank">Instagram</a>
+      <a href="https://w.app/leukos" target="_blank">WhatsApp</a>
+      <a href="https://link.mercadopago.cl/leukosvelas" target="_blank">Tienda</a>
     </div>
-    <div class="footer-divider"></div>
-    <p class="footer-bottom">© 2026 Artesanías Leukos Limitada · RUT 77.978.794-K · Santiago, Chile</p>
+    <p class="footer-copy">© 2026 Artesanías Leukós · Santiago, Chile</p>
   </footer>
 
+  <script>
+    // Nav cambia de color al hacer scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  </script>
 </body>
 </html>
