@@ -49,6 +49,8 @@
       transition: color .3s;
     }
     nav.scrolled .nav-logo { color: var(--charcoal); }
+
+    /* Links desktop */
     .nav-links { display: flex; gap: 28px; align-items: center; }
     .nav-links a {
       font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
@@ -71,6 +73,47 @@
       color: var(--linen) !important;
     }
     .nav-cta:hover { background: var(--honey) !important; }
+
+    /* Hamburguesa */
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+      z-index: 110;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: background .3s, transform .3s, opacity .3s;
+    }
+    nav.scrolled .hamburger span { background: var(--charcoal); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Menú móvil overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 105;
+      background: rgba(27,16,10,0.97);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cinzel', serif;
+      font-size: 20px; letter-spacing: 5px;
+      color: var(--linen); text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--honey); }
+    .mobile-menu .menu-cta {
+      margin-top: 12px;
+      background: var(--honey); color: #fff;
+      padding: 14px 32px; border-radius: 50px;
+      font-size: 14px; letter-spacing: 2px;
+    }
 
     /* ── HERO VIDEO (pantalla completa) ──────────────── */
     .hero-video-section {
@@ -450,6 +493,7 @@
     @media (max-width: 760px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .hamburger { display: flex; }
       .story { grid-template-columns: 1fr; }
       .story-img { height: 280px; }
       .story-img::after { background: linear-gradient(to bottom, transparent 70%, var(--linen)); }
@@ -468,14 +512,26 @@
     </svg>
   </a>
 
+  <!-- Menú móvil overlay -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#historia" onclick="closeMobileMenu()">Historia</a>
+    <a href="#productos" onclick="closeMobileMenu()">Velas</a>
+    <a href="#aromas" onclick="closeMobileMenu()">Aromas</a>
+    <a href="#contacto" onclick="closeMobileMenu()" class="menu-cta">Comprar</a>
+  </div>
+
   <!-- NAV -->
   <nav id="main-nav">
     <a href="#" class="nav-logo">LEUKÓS</a>
     <div class="nav-links">
-      <a href="#productos">Velas</a>
       <a href="#historia">Historia</a>
-      <a href="#productos" class="nav-cta">Comprar</a>
+      <a href="#productos">Velas</a>
+      <a href="#aromas">Aromas</a>
+      <a href="#contacto" class="nav-cta">Comprar</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO: VIDEO PANTALLA COMPLETA -->
@@ -487,7 +543,7 @@
       <div class="hero-logo-wrap">
         <img src="./img/logo.png" alt="Leukós"/>
       </div>
-      <p class="hero-eyebrow">Velas artesanales · Santiago de Chile</p>
+      <p class="hero-eyebrow">Velas Artesanales</p>
       <h1 class="hero-title">LEUKÓS</h1>
       <p class="hero-claim">Cera de coco · Aromas naturales</p>
       <p class="hero-tagline">Date un momento Leukós.</p>
@@ -506,24 +562,23 @@
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <!-- duplicado para loop continuo -->
-      <span class="marquee-item">Cera de coco <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Aromas naturales <span class="marquee-dot"></span></span>
       <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
       <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Envío a todo el país <span class="marquee-dot"></span></span>
-      <span class="marquee-item">λευκός · luz <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Cera de coco <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Aromas naturales <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envíos a todo el país <span class="marquee-dot"></span></span>
       <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
       <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
-      <span class="marquee-item">Envío a todo el país <span class="marquee-dot"></span></span>
-      <span class="marquee-item">λευκός · luz <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envíos a todo el país <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envíos a todo el país <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Hecho en Chile <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Artesanal <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Envíos a todo el país <span class="marquee-dot"></span></span>
     </div>
   </div>
 
   <!-- HISTORIA -->
-  <section class="story" id="historia">
+  <section class="story" id="historia" style="scroll-margin-top:70px">
     <div class="story-img">
       <img src="./img/ambiente-2.jpg" alt="Vela Leukós" loading="lazy"/>
     </div>
@@ -590,7 +645,7 @@
   </section>
 
   <!-- AROMAS -->
-  <section class="aromas">
+  <section class="aromas" id="aromas" style="scroll-margin-top:70px">
     <p class="section-label">Aromaterapia natural</p>
     <h2>Elige tu aroma</h2>
     <p class="aromas-intro">Todos disponibles en cualquier tamaño.</p>
@@ -616,7 +671,7 @@
   </div>
 
   <!-- CTA FINAL -->
-  <section class="cta-section">
+  <section class="cta-section" id="contacto" style="scroll-margin-top:70px">
     <p class="section-label" style="color:var(--honey)">Pedidos y consultas</p>
     <h2>Enciende tu momento</h2>
     <p>Escríbenos o compra directo con pago seguro.</p>
@@ -646,11 +701,19 @@
   </footer>
 
   <script>
-    // Nav cambia de color al hacer scroll
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    function toggleMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
   </script>
 </body>
 </html>
