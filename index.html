@@ -163,14 +163,13 @@
       padding: 0 28px;
     }
     .hero-logo-wrap {
-      width: 140px; height: 140px; border-radius: 50%; overflow: hidden;
+      width: 160px; height: 192px;
       margin: 0 auto 24px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-      border: 1.5px solid rgba(255,255,255,0.2);
+      transform: translateX(-12px);
     }
-    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
     .hero-eyebrow {
-      font-size: 10.5px; font-weight: 600; letter-spacing: 4px;
+      font-size: 15px; font-weight: 600; letter-spacing: 4px;
       text-transform: uppercase; color: var(--honey);
       margin-bottom: 14px;
     }
@@ -276,13 +275,13 @@
     }
     .story-text h2 {
       font-family: 'Cinzel', serif;
-      font-size: clamp(24px, 3vw, 36px);
+      font-size: clamp(30px, 3.8vw, 46px);
       font-weight: 400; letter-spacing: 2px;
       line-height: 1.25; color: var(--charcoal);
       margin-bottom: 22px;
     }
     .story-text p {
-      font-size: 15px; line-height: 1.75;
+      font-size: 17px; line-height: 1.75;
       color: var(--charcoal-s); margin-bottom: 14px;
     }
     .story-text p em {
@@ -320,8 +319,8 @@
       font-size: 17px; color: rgba(234,226,210,0.55);
     }
     .products-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px; max-width: 1200px; margin: 0 auto;
     }
     .product-card {
       background: rgba(255,255,255,0.04);
@@ -504,7 +503,7 @@
       .story-img { height: 280px; }
       .story-img::after { background: linear-gradient(to bottom, transparent 70%, var(--linen)); }
       .story-text { padding: 40px 28px; }
-      .products-grid { grid-template-columns: 1fr; max-width: 340px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); max-width: 500px; }
       .cta-btns { flex-direction: column; align-items: center; }
     }
   </style>
@@ -528,7 +527,7 @@
 
   <!-- NAV -->
   <nav id="main-nav">
-    <a href="#" class="nav-logo">LEUKÓS</a>
+    <a href="#" class="nav-logo"></a>
     <div class="nav-links">
       <a href="#historia">Historia</a>
       <a href="#productos">Velas</a>
@@ -547,15 +546,14 @@
     </video>
     <div class="hero-content">
       <div class="hero-logo-wrap">
-        <img src="./img/logo.png" alt="Leukós"/>
+        <img src="./img/llama.png" alt="Leukós"/>
       </div>
-      <p class="hero-eyebrow">Velas Artesanales</p>
       <h1 class="hero-title">LEUKÓS</h1>
+      <p class="hero-eyebrow">Velas Artesanales</p>
       <p class="hero-claim">Cera de coco · Aromas naturales</p>
-      <p class="hero-tagline">Date un momento Leukós.</p>
       <div class="hero-ctas">
-        <a href="https://link.mercadopago.cl/leukosvelas" class="btn-honey" target="_blank">Comprar ahora</a>
-        <a href="https://wa.me/56998850080" class="btn-glass" target="_blank">Escribirnos</a>
+        <a href="#productos" class="btn-honey">Catálogo</a>
+        <a href="https://wa.me/56998850080" class="btn-glass" target="_blank">Escríbenos</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -590,9 +588,9 @@
     </div>
     <div class="story-text">
       <p class="section-label">Nuestro deseo</p>
-      <h2>Luz hecha a mano,<br>hecha con propósito</h2>
+      <h2>Luz hecha a mano,<br>Con propósito</h2>
       <p>Leukós nace de un anhelo de anunciar y compartir la luz que viene de Dios, con otros. Leukós, del griego λευκός — <em>luz, blancura, resplandor</em>. La misma raíz de "luz" en español. No es una coincidencia: cada vela que hacemos es una pequeña fuente de luz que invita a detenerse, y dejarse iluminar por esa luz divina que brota de nuestro interior.</p>
-      <p>Elaboramos nuestras velas a mano y en oración con cera vegetal y aromas pensados para ayudarte a hacer ese viaje interior que anhelas, para encontrar esa luz que habita en tu interior, para dejarla brotar para que ilumina en la oscuridad.</p>
+      <p>Elaboramos nuestras velas de manera artesanal en oración, con cera vegetal y aromas pensados para ayudarte a hacer ese viaje interior que anhelas. Queremos que te encuentres con esa luz que habita en tu interior, y que está esperando brotar para iluminar la oscuridad, siguiendo el camino que muchos antes de nosotros ya recorrieron.</p>
     </div>
   </section>
 
@@ -606,13 +604,13 @@
     <div class="section-header">
       <p class="section-label" style="color:var(--honey)">Colección</p>
       <h2>Nuestras velas</h2>
-      <p>Cada tamaño, un momento distinto.</p>
+      <p>Cada aroma, un momento distinto.</p>
     </div>
     <div class="products-grid">
 
       <div class="product-card">
         <div class="product-img">
-          <img src="./img/vela-mediana.jpg" alt="Vela Pequeña"/>
+          <img src="./img/vela-pequeña gris.png" alt="Vela Pequeña"/>
           <span class="product-badge">Más vendida</span>
         </div>
         <div class="product-info">
@@ -625,7 +623,19 @@
 
       <div class="product-card">
         <div class="product-img">
-          <img src="./img/vela-negra.png" alt="Vela Mediana"/>
+          <img src="./img/vela-pequena+.jpg" alt="Vela Pequeña+"/>
+        </div>
+        <div class="product-info">
+          <div class="product-name">PEQUEÑA+</div>
+          <div class="product-weight">190 g · ~55 h de duración</div>
+          <div class="product-price">$12.000</div>
+          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <img src="./img/vela mediana.png" alt="Vela Mediana"/>
         </div>
         <div class="product-info">
           <div class="product-name">MEDIANA</div>
@@ -637,7 +647,7 @@
 
       <div class="product-card">
         <div class="product-img">
-          <img src="./img/vela-blanca.png" alt="Vela Grande"/>
+          <img src="./img/Grande blanca.JPG" alt="Vela Grande"/>
         </div>
         <div class="product-info">
           <div class="product-name">GRANDE</div>
