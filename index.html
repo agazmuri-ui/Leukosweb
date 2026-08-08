@@ -1036,6 +1036,10 @@
         <label>Teléfono *</label>
         <input type="tel" id="ch-telefono" placeholder="+56 9 1234 5678" />
       </div>
+      <div class="form-group">
+        <label>Correo electrónico *</label>
+        <input type="email" id="ch-email" placeholder="tu@correo.com" />
+      </div>
 
       <div class="form-group">
         <label>Opción de envío *</label>
@@ -1122,7 +1126,7 @@
 
     // ── E-COMMERCE ───────────────────────────────────────────
     // 👇 Pega aquí la URL de tu Apps Script desplegado
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym67SSMzGslC6bDi5UyIFNKh94RitvYG8cJ37ZvTzxB4uNT2IWRGi-_UbbLAKUGv8Jxg/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFQhsIKS3X41CoOldHRi78iaFoKOAZq2b4CA-DSJ88pYIKfd16VqFUAxtt3wuPqrdncg/exec';
 
     const PRICES = { 'pequeña': 9000, 'pequeña+': 12000, 'mediana': 16000, 'grande': 20000 };
     const SIZE_LABELS = { 'pequeña': 'Pequeña', 'pequeña+': 'Pequeña+', 'mediana': 'Mediana', 'grande': 'Grande' };
@@ -1376,9 +1380,11 @@
     async function confirmCheckout() {
       const nombre = document.getElementById('ch-nombre').value.trim();
       const telefono = document.getElementById('ch-telefono').value.trim();
+      const email = document.getElementById('ch-email').value.trim();
       const shippingEl = document.querySelector('input[name="shipping"]:checked');
       if (!nombre) { alert('Por favor ingresa tu nombre.'); return; }
       if (!telefono) { alert('Por favor ingresa tu teléfono.'); return; }
+      if (!email) { alert('Por favor ingresa tu correo electrónico.'); return; }
       if (!shippingEl) { alert('Por favor selecciona una opción de envío.'); return; }
       const needsAddress = shippingEl.dataset.needsAddress === 'true';
       const direccion = document.getElementById('ch-direccion').value.trim();
@@ -1388,7 +1394,7 @@
         size: item.sizeLabel, frasco: item.frasco, aroma: item.aroma, price: item.price
       }));
       const customerData = {
-        nombre, telefono, direccion,
+        nombre, telefono, email, direccion,
         envio: shippingEl.value,
         shippingPrice: parseInt(shippingEl.dataset.price) || 0
       };

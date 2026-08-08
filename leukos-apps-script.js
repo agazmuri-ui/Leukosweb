@@ -34,7 +34,9 @@ function doPost(e) {
     const cartJson = e.parameter.cart;
     if (!cartJson) throw new Error('Sin datos de carrito');
     const items = JSON.parse(cartJson);
-    const initPoint = createMPPreference(items);
+    const customerJson = e.parameter.customer;
+    const customer = customerJson ? JSON.parse(customerJson) : {};
+    const initPoint = createMPPreference(items, customer.email || '');
     return jsonResponse({ ok: true, init_point: initPoint });
   } catch (err) {
     return jsonResponse({ ok: false, error: err.message });
@@ -90,7 +92,7 @@ function getInventory() {
 }
 
 // ── Crea preferencia en Mercado Pago ────────────────────────
-function createMPPreference(items) {
+function createMPPreference(items, payerEmail) {
   const mpItems = items.map(item => ({
     title: `Vela Leukós ${capitalize(item.size)} · ${item.frasco} · ${item.aroma}`,
     quantity: 1,
@@ -100,6 +102,7 @@ function createMPPreference(items) {
 
   const payload = {
     items: mpItems,
+    payer: payerEmail ? { email: payerEmail } : {},
     back_urls: {
       success: LEUKOS_URL + '/?pago=exitoso',
       failure: LEUKOS_URL + '/?pago=fallido',
