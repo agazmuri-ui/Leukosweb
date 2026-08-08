@@ -1122,7 +1122,7 @@
 
     // ── E-COMMERCE ───────────────────────────────────────────
     // 👇 Pega aquí la URL de tu Apps Script desplegado
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFF7H8ys80_GdpMtNIz9F18xwe30uuvSjFf_oh2JWWt2VwDFTKCjOucIFOz5OKs6HfSA/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym67SSMzGslC6bDi5UyIFNKh94RitvYG8cJ37ZvTzxB4uNT2IWRGi-_UbbLAKUGv8Jxg/exec';
 
     const PRICES = { 'pequeña': 9000, 'pequeña+': 12000, 'mediana': 16000, 'grande': 20000 };
     const SIZE_LABELS = { 'pequeña': 'Pequeña', 'pequeña+': 'Pequeña+', 'mediana': 'Mediana', 'grande': 'Grande' };
@@ -1373,7 +1373,7 @@
       document.getElementById('ch-total').textContent = '$' + total.toLocaleString('es-CL');
     }
 
-    function confirmCheckout() {
+    async function confirmCheckout() {
       const nombre = document.getElementById('ch-nombre').value.trim();
       const telefono = document.getElementById('ch-telefono').value.trim();
       const shippingEl = document.querySelector('input[name="shipping"]:checked');
@@ -1383,10 +1383,7 @@
       const needsAddress = shippingEl.dataset.needsAddress === 'true';
       const direccion = document.getElementById('ch-direccion').value.trim();
       if (needsAddress && !direccion) { alert('Por favor ingresa tu dirección de despacho.'); return; }
-      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'TU_URL_APPS_SCRIPT_AQUI') {
-        alert('El sistema de pago aún no está configurado. Por favor escríbenos por WhatsApp.');
-        return;
-      }
+
       const cartData = cart.map(item => ({
         size: item.sizeLabel, frasco: item.frasco, aroma: item.aroma, price: item.price
       }));
@@ -1395,22 +1392,36 @@
         envio: shippingEl.value,
         shippingPrice: parseInt(shippingEl.dataset.price) || 0
       };
+
       const btn = document.getElementById('btn-confirm-checkout');
       btn.disabled = true;
       btn.textContent = 'Procesando...';
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = APPS_SCRIPT_URL;
-      form.target = '_blank';
-      [['cart', JSON.stringify(cartData)], ['customer', JSON.stringify(customerData)]].forEach(([name, val]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden'; input.name = name; input.value = val;
-        form.appendChild(input);
-      });
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-      setTimeout(() => { btn.disabled = false; btn.textContent = 'Ir a pagar →'; }, 4000);
+
+      try {
+        const formData = new FormData();
+        formData.append('cart', JSON.stringify(cartData));
+        formData.append('customer', JSON.stringify(customerData));
+
+        const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else if (data.error) {
+          alert('Error al generar el pago: ' + data.error + '\nEscríbenos por WhatsApp si el problema persiste.');
+          btn.disabled = false;
+          btn.textContent = 'Ir a pagar →';
+        } else {
+          alert('Respuesta inesperada del servidor. Escríbenos por WhatsApp.');
+          btn.disabled = false;
+          btn.textContent = 'Ir a pagar →';
+        }
+      } catch (e) {
+        console.error('Error checkout:', e);
+        alert('No pudimos conectar con el sistema de pago. Por favor escríbenos por WhatsApp.');
+        btn.disabled = false;
+        btn.textContent = 'Ir a pagar →';
+      }
     }
 
     // ── Init ─────────────────────────────────────────────────
