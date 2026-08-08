@@ -269,7 +269,7 @@
       padding: 64px 60px 64px 48px;
     }
     .section-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 4px;
+      font-size: 12px; font-weight: 600; letter-spacing: 4px;
       text-transform: uppercase; color: var(--honey);
       margin-bottom: 20px;
     }
@@ -374,24 +374,50 @@
     }
     .aromas h2 {
       font-family: 'Cinzel', serif;
-      font-size: clamp(20px, 2.8vw, 30px);
-      font-weight: 400; letter-spacing: 4px;
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 300; letter-spacing: 4px;
       color: var(--charcoal); margin-bottom: 14px;
     }
     .aromas-intro {
       font-family: 'Fraunces', serif; font-style: italic;
       font-size: 17px; color: var(--charcoal-s);
-      margin-bottom: 50px;
+      margin-bottom: 56px;
     }
     .aromas-grid {
-      display: flex; flex-wrap: wrap;
-      gap: 12px; justify-content: center;
-      max-width: 700px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      max-width: 1100px; margin: 0 auto;
     }
-    .aroma-tag {
-      background: var(--charcoal); color: var(--linen);
-      padding: 9px 20px; border-radius: 40px;
-      font-size: 12.5px; letter-spacing: 1.5px;
+    .aroma-card {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+      padding: 28px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(43,36,32,0.08);
+      background: rgba(255,255,255,0.4);
+      transition: transform .25s, border-color .25s;
+    }
+    .aroma-card:hover { transform: translateY(-4px); border-color: rgba(196,128,30,0.3); }
+    .aroma-img {
+      width: 80px; height: 80px;
+      object-fit: contain;
+    }
+    .aroma-name {
+      font-family: 'Cinzel', serif;
+      font-size: 15px; font-weight: 500; letter-spacing: 2px;
+      color: var(--charcoal); text-transform: uppercase;
+    }
+    .aroma-desc {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 15px; line-height: 1.6;
+      color: var(--charcoal-s);
+    }
+    @media (max-width: 900px) {
+      .aromas-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .aromas-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ── ATMOSPHERE 2 ─────────────────────────────── */
@@ -495,6 +521,222 @@
     .wa-float svg { width: 28px; height: 28px; fill: #fff; }
 
     /* ── RESPONSIVE ──────────────────────────────────── */
+    /* ── CART BUTTON (nav) ──────────────────────────────── */
+    .cart-btn {
+      position: relative; background: none; border: none;
+      cursor: pointer; padding: 4px; color: #fff;
+      display: flex; align-items: center;
+      transition: color .2s;
+    }
+    nav.scrolled .cart-btn { color: var(--charcoal); }
+    .cart-badge {
+      position: absolute; top: -5px; right: -7px;
+      background: var(--honey); color: #fff;
+      font-size: 9px; font-weight: 700;
+      width: 17px; height: 17px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s; pointer-events: none;
+    }
+    .cart-badge.visible { opacity: 1; }
+
+    /* ── MODAL PERSONALIZADOR ───────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(27,16,10,0.72);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--linen); border-radius: 20px;
+      padding: 36px 32px; max-width: 440px; width: 100%;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform .25s;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; cursor: pointer;
+      font-size: 24px; color: var(--charcoal-s); line-height: 1;
+    }
+    .modal-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--honey); margin-bottom: 6px;
+    }
+    .modal h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 22px; font-weight: 400; letter-spacing: 2px;
+      color: var(--charcoal); margin-bottom: 4px;
+    }
+    .modal-price {
+      font-family: 'Cinzel', serif;
+      font-size: 20px; color: var(--honey); margin-bottom: 28px;
+    }
+    .selector-group { margin-bottom: 22px; }
+    .selector-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--charcoal-s); margin-bottom: 10px;
+    }
+    .option-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .option-pill {
+      padding: 8px 18px; border-radius: 40px;
+      border: 1.5px solid var(--linen-d);
+      background: none; cursor: pointer;
+      font-size: 13px; color: var(--charcoal);
+      transition: all .15s;
+    }
+    .option-pill:hover:not(.unavailable) { border-color: var(--honey); }
+    .option-pill.selected { background: var(--charcoal); color: var(--linen); border-color: var(--charcoal); }
+    .option-pill.unavailable { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+    .modal-stock {
+      font-size: 12px; color: var(--charcoal-s);
+      min-height: 18px; margin-bottom: 16px;
+    }
+    .btn-add-cart {
+      display: block; width: 100%;
+      background: var(--honey); color: #fff;
+      padding: 14px; border-radius: 12px; border: none;
+      cursor: pointer; font-size: 14px; font-weight: 600;
+      letter-spacing: 0.5px; transition: background .2s;
+    }
+    .btn-add-cart:hover:not(:disabled) { background: var(--honey-d); }
+    .btn-add-cart:disabled { background: var(--linen-d); color: var(--charcoal-s); cursor: not-allowed; }
+
+    /* ── CART DRAWER ────────────────────────────────────── */
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 400;
+      width: 380px; max-width: 100%;
+      background: var(--linen);
+      box-shadow: -4px 0 30px rgba(0,0,0,0.18);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-scrim {
+      position: fixed; inset: 0; z-index: 390;
+      background: rgba(27,16,10,0.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .cart-scrim.open { opacity: 1; pointer-events: all; }
+    .cart-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--linen-d);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cart-head h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 14px; letter-spacing: 3px; font-weight: 400;
+      text-transform: uppercase;
+    }
+    .cart-close-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 22px; color: var(--charcoal-s);
+    }
+    .cart-items-list { flex: 1; overflow-y: auto; padding: 16px 24px; }
+    .cart-empty {
+      text-align: center; padding: 48px 0;
+      color: var(--charcoal-s); font-size: 15px;
+      font-family: 'Fraunces', serif; font-style: italic;
+    }
+    .cart-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0; border-bottom: 1px solid var(--linen-d);
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name {
+      font-family: 'Cinzel', serif;
+      font-size: 13px; letter-spacing: 1px;
+      color: var(--charcoal); margin-bottom: 3px;
+    }
+    .cart-item-detail { font-size: 12px; color: var(--charcoal-s); }
+    .cart-item-price {
+      font-family: 'Cinzel', serif;
+      font-size: 14px; color: var(--honey); white-space: nowrap;
+    }
+    .cart-item-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--charcoal-s); font-size: 18px;
+      opacity: 0.45; transition: opacity .2s; padding: 0 4px;
+    }
+    .cart-item-remove:hover { opacity: 1; }
+    .cart-foot {
+      padding: 20px 24px;
+      border-top: 1px solid var(--linen-d);
+      flex-shrink: 0;
+    }
+    .cart-total-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .cart-total-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--charcoal-s); }
+    .cart-total-amount {
+      font-family: 'Cinzel', serif;
+      font-size: 22px; color: var(--charcoal);
+    }
+    .btn-checkout {
+      display: block; width: 100%;
+      background: var(--honey); color: #fff;
+      padding: 15px; border-radius: 12px; border: none;
+      cursor: pointer; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px; transition: background .2s;
+    }
+    .btn-checkout:hover:not(:disabled) { background: var(--honey-d); }
+    .btn-checkout:disabled { background: var(--linen-d); color: var(--charcoal-s); cursor: not-allowed; }
+
+    /* ── CHECKOUT FORM MODAL ─────────────────────────────── */
+    .checkout-form-modal { max-width: 500px; }
+    .checkout-form-modal h3 {
+      font-family: 'Cinzel', serif; font-size: 18px; font-weight: 400;
+      letter-spacing: 2px; color: var(--charcoal); margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--charcoal-s); margin-bottom: 6px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="tel"] {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--linen-d); border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 15px;
+      color: var(--charcoal); background: #fff; box-sizing: border-box;
+      transition: border-color .2s;
+    }
+    .form-group input:focus { outline: none; border-color: var(--honey); }
+    .shipping-options { display: flex; flex-direction: column; gap: 8px; }
+    .shipping-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; border: 1.5px solid var(--linen-d);
+      border-radius: 8px; cursor: pointer; transition: border-color .2s, background .2s;
+    }
+    .shipping-opt:hover { border-color: var(--honey); }
+    .shipping-opt input[type="radio"] { accent-color: var(--honey); flex-shrink: 0; }
+    .shipping-opt.selected { border-color: var(--honey); background: rgba(196,128,30,0.06); }
+    .shipping-opt-text { flex: 1; }
+    .shipping-opt-name { font-size: 14px; color: var(--charcoal); font-weight: 500; }
+    .shipping-opt-price { font-size: 12px; color: var(--charcoal-s); margin-top: 2px; }
+    .checkout-summary {
+      border-top: 1px solid var(--linen-d); margin-top: 20px; padding-top: 16px;
+    }
+    .checkout-summary-row {
+      display: flex; justify-content: space-between;
+      font-size: 14px; color: var(--charcoal-s); margin-bottom: 6px;
+    }
+    .checkout-summary-total {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 18px; font-weight: 700; color: var(--charcoal);
+      margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--linen-d);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 760px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
@@ -522,7 +764,6 @@
     <a href="#historia" onclick="closeMobileMenu()">Historia</a>
     <a href="#productos" onclick="closeMobileMenu()">Velas</a>
     <a href="#aromas" onclick="closeMobileMenu()">Aromas</a>
-    <a href="#contacto" onclick="closeMobileMenu()" class="menu-cta">Comprar</a>
   </div>
 
   <!-- NAV -->
@@ -532,11 +773,18 @@
       <a href="#historia">Historia</a>
       <a href="#productos">Velas</a>
       <a href="#aromas">Aromas</a>
-      <a href="#contacto" class="nav-cta">Comprar</a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="cart-btn" id="cart-btn" onclick="toggleCart()" aria-label="Carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO: VIDEO PANTALLA COMPLETA -->
@@ -604,7 +852,7 @@
     <div class="section-header">
       <p class="section-label" style="color:var(--honey)">Colección</p>
       <h2>Nuestras velas</h2>
-      <p>Cada aroma, un momento distinto.</p>
+      <p>Elige el tamaño y color del frasco.</p>
     </div>
     <div class="products-grid">
 
@@ -617,7 +865,7 @@
           <div class="product-name">PEQUEÑA</div>
           <div class="product-weight">160 g · ~40 h de duración</div>
           <div class="product-price">$9.000</div>
-          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+          <button class="btn-buy" onclick="openCustomizer('pequeña')">Agregar al carro</button>
         </div>
       </div>
 
@@ -629,7 +877,7 @@
           <div class="product-name">PEQUEÑA+</div>
           <div class="product-weight">190 g · ~55 h de duración</div>
           <div class="product-price">$12.000</div>
-          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+          <button class="btn-buy" onclick="openCustomizer('pequeña+')">Agregar al carro</button>
         </div>
       </div>
 
@@ -641,7 +889,7 @@
           <div class="product-name">MEDIANA</div>
           <div class="product-weight">300 g · ~70 h de duración</div>
           <div class="product-price">$16.000</div>
-          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+          <button class="btn-buy" onclick="openCustomizer('mediana')">Agregar al carro</button>
         </div>
       </div>
 
@@ -653,7 +901,7 @@
           <div class="product-name">GRANDE</div>
           <div class="product-weight">520 g · ~120 h de duración</div>
           <div class="product-price">$20.000</div>
-          <a href="https://link.mercadopago.cl/leukosvelas" class="btn-buy" target="_blank">Comprar</a>
+          <button class="btn-buy" onclick="openCustomizer('grande')">Agregar al carro</button>
         </div>
       </div>
 
@@ -662,21 +910,41 @@
 
   <!-- AROMAS -->
   <section class="aromas" id="aromas" style="scroll-margin-top:70px">
-    <p class="section-label">Aromas que acompañan</p>
-    <h2>Elige el tuyo</h2>
-    <p class="aromas-intro">Pregunta por tu aroma y por tamaño.</p>
+    <p class="section-label" style="color:var(--honey)">Aromas</p>
+    <h2>Aromas que acompañan</h2>
+    <p class="aromas-intro">Cada vela viene en el aroma que elijas.</p>
     <div class="aromas-grid">
-      <span class="aroma-tag">Lavanda</span>
-      <span class="aroma-tag">Verbena</span>
-      <span class="aroma-tag">Mirra</span>
-      <span class="aroma-tag">Melisa</span>
-      <span class="aroma-tag">Jazmín</span>
+      <div class="aroma-card">
+        <img class="aroma-img" src="./img/Lavanda.png" alt="Lavanda" loading="lazy"/>
+        <div class="aroma-name">Lavanda</div>
+        <p class="aroma-desc">Suave y floral, con un toque herbal. El aroma más reconocido para relajar la mente y preparar el descanso.</p>
+      </div>
+      <div class="aroma-card">
+        <img class="aroma-img" src="./img/Verbena.png" alt="Verbena" loading="lazy"/>
+        <div class="aroma-name">Verbena</div>
+        <p class="aroma-desc">Floral y cítrica a la vez, fresca y limpia. Ideal para espacios de trabajo o momentos de claridad.</p>
+      </div>
+      <div class="aroma-card">
+        <img class="aroma-img" src="./img/Mirra.png" alt="Mirra" loading="lazy"/>
+        <div class="aroma-name">Mirra</div>
+        <p class="aroma-desc">Resinosa, cálida y profunda. Un aroma ancestral usado en oración e incienso desde tiempos bíblicos.</p>
+      </div>
+      <div class="aroma-card">
+        <img class="aroma-img" src="./img/Melisa.png" alt="Melisa" loading="lazy"/>
+        <div class="aroma-name">Melisa</div>
+        <p class="aroma-desc">Herbal con notas suaves de limón. Reconfortante y equilibrante, ideal para momentos de calma interior.</p>
+      </div>
+      <div class="aroma-card">
+        <img class="aroma-img" src="./img/Jazmin.png" alt="Jazmín" loading="lazy"/>
+        <div class="aroma-name">Jazmín</div>
+        <p class="aroma-desc">Floral intenso y dulce, envolvente. Evoca calidez, presencia y una belleza que permanece en el ambiente.</p>
+      </div>
     </div>
   </section>
 
   <!-- ATMOSPHERE 2 -->
   <div class="atm2">
-    <img src="./img/vela-azul.png" alt="Vela Leukós" loading="lazy"/>
+    <img src="./img/Date un momento Leukos.png" alt="Date un momento Leukós" loading="lazy"/>
     <div class="atm2-text">
       <blockquote>«Date un momento Leukós.»<br></blockquote>
       <cite>Leukós · λευκός</cite>
@@ -685,15 +953,12 @@
 
   <!-- CTA FINAL -->
   <section class="cta-section" id="contacto" style="scroll-margin-top:70px">
-    <h2>Pedidos y consultas</h2>
-    <p>Escríbenos o compra directo con pago seguro, agregando el monto total.</p>
+    <h2>Pedidos personalizados y consultas</h2>
+    <p>Si no encuentras lo que buscas, escríbenos para personalizar tu pedido.</p>
     <div class="cta-btns">
       <a href="https://wa.me/56998850080" class="btn-wa" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Escríbenos
-      </a>
-      <a href="https://link.mercadopago.cl/leukosvelas" class="btn-mp" target="_blank">
-        Mercado Pago
       </a>
     </div>
     <p style="margin-top:28px; font-size:12px; color:rgba(234,226,210,0.25); letter-spacing:1px;">
@@ -707,12 +972,140 @@
     <div class="footer-links">
       <a href="https://www.instagram.com/leukos.velas/" target="_blank">Instagram</a>
       <a href="https://wa.me/56998850080" target="_blank">WhatsApp</a>
-      <a href="https://link.mercadopago.cl/leukosvelas" target="_blank">Comprar</a>
     </div>
     <p class="footer-copy">© 2026 Artesanías Leukós · Santiago, Chile</p>
   </footer>
 
+  <!-- MODAL PERSONALIZADOR -->
+  <div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <p class="modal-eyebrow" id="modal-eyebrow">Vela</p>
+      <h3 id="modal-title">Pequeña</h3>
+      <p class="modal-price" id="modal-price">$9.000</p>
+
+      <div class="selector-group">
+        <p class="selector-label">Frasco</p>
+        <div class="option-pills" id="frasco-options"></div>
+      </div>
+
+      <div class="selector-group">
+        <p class="selector-label">Aroma</p>
+        <div class="option-pills" id="aroma-options"></div>
+      </div>
+
+      <p class="modal-stock" id="modal-stock"></p>
+      <button class="btn-add-cart" id="btn-add-cart" onclick="addToCart()" disabled>
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-scrim" id="cart-scrim" onclick="toggleCart()"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>Tu pedido</h3>
+      <button class="cart-close-btn" onclick="toggleCart()">×</button>
+    </div>
+    <div class="cart-items-list" id="cart-items-list">
+      <p class="cart-empty">Tu carrito está vacío</p>
+    </div>
+    <div class="cart-foot">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-amount" id="cart-total-amount">$0</span>
+      </div>
+      <button class="btn-checkout" id="btn-checkout" onclick="checkout()" disabled>
+        Ir a pagar
+      </button>
+    </div>
+  </div>
+
+  <!-- CHECKOUT FORM MODAL -->
+  <div class="modal-overlay" id="checkout-form-overlay">
+    <div class="modal checkout-form-modal" id="checkout-form-modal">
+      <button class="modal-close" onclick="closeCheckoutFormModal()">✕</button>
+      <h3>Completa tu pedido</h3>
+
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input type="text" id="ch-nombre" placeholder="Tu nombre y apellido" />
+      </div>
+      <div class="form-group">
+        <label>Teléfono *</label>
+        <input type="tel" id="ch-telefono" placeholder="+56 9 1234 5678" />
+      </div>
+
+      <div class="form-group">
+        <label>Opción de envío *</label>
+        <div class="shipping-options" id="shipping-options">
+          <label class="shipping-opt" onclick="onShippingChange(this)">
+            <input type="radio" name="shipping" value="retiro-vitacura" data-price="0" data-needs-address="false"/>
+            <div class="shipping-opt-text">
+              <div class="shipping-opt-name">Retiro en Vitacura</div>
+              <div class="shipping-opt-price">Gratis</div>
+            </div>
+          </label>
+          <label class="shipping-opt" onclick="onShippingChange(this)">
+            <input type="radio" name="shipping" value="retiro-chicureo" data-price="0" data-needs-address="false"/>
+            <div class="shipping-opt-text">
+              <div class="shipping-opt-name">Retiro en Chicureo</div>
+              <div class="shipping-opt-price">Gratis</div>
+            </div>
+          </label>
+          <label class="shipping-opt" onclick="onShippingChange(this)">
+            <input type="radio" name="shipping" value="despacho-local" data-price="3500" data-needs-address="true"/>
+            <div class="shipping-opt-text">
+              <div class="shipping-opt-name">Despacho a Vitacura / Las Condes / Chicureo</div>
+              <div class="shipping-opt-price">+$3.500</div>
+            </div>
+          </label>
+          <label class="shipping-opt" onclick="onShippingChange(this)">
+            <input type="radio" name="shipping" value="starken" data-price="0" data-needs-address="true"/>
+            <div class="shipping-opt-text">
+              <div class="shipping-opt-name">Starken</div>
+              <div class="shipping-opt-price">Por pagar en destino</div>
+            </div>
+          </label>
+          <label class="shipping-opt" onclick="onShippingChange(this)">
+            <input type="radio" name="shipping" value="blue-express" data-price="0" data-needs-address="true"/>
+            <div class="shipping-opt-text">
+              <div class="shipping-opt-name">Blue Express</div>
+              <div class="shipping-opt-price">Por pagar en destino</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="address-group" style="display:none">
+        <label>Dirección de despacho *</label>
+        <input type="text" id="ch-direccion" placeholder="Calle, número, comuna" />
+      </div>
+
+      <div class="checkout-summary">
+        <div class="checkout-summary-row">
+          <span>Subtotal</span>
+          <span id="ch-subtotal">$0</span>
+        </div>
+        <div class="checkout-summary-row">
+          <span>Despacho</span>
+          <span id="ch-shipping-label">—</span>
+        </div>
+        <div class="checkout-summary-total">
+          <span>Total</span>
+          <span id="ch-total">$0</span>
+        </div>
+      </div>
+
+      <button class="btn-checkout" id="btn-confirm-checkout" onclick="confirmCheckout()" style="margin-top:20px">
+        Ir a pagar →
+      </button>
+    </div>
+  </div>
+
   <script>
+    // ── NAV scroll ───────────────────────────────────────────
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
@@ -726,6 +1119,302 @@
       document.getElementById('mobile-menu').classList.remove('open');
       document.getElementById('hamburger').classList.remove('open');
     }
+
+    // ── E-COMMERCE ───────────────────────────────────────────
+    // 👇 Pega aquí la URL de tu Apps Script desplegado
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFF7H8ys80_GdpMtNIz9F18xwe30uuvSjFf_oh2JWWt2VwDFTKCjOucIFOz5OKs6HfSA/exec';
+
+    const PRICES = { 'pequeña': 9000, 'pequeña+': 12000, 'mediana': 16000, 'grande': 20000 };
+    const SIZE_LABELS = { 'pequeña': 'Pequeña', 'pequeña+': 'Pequeña+', 'mediana': 'Mediana', 'grande': 'Grande' };
+
+    let inventory = [];
+    let currentSize = null;
+    let selectedFrasco = null;
+    let selectedAroma = null;
+    let cart = [];
+
+    // ── Cargar inventario al inicio ──────────────────────────
+    async function loadInventory() {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'TU_URL_APPS_SCRIPT_AQUI') return;
+      try {
+        const res = await fetch(APPS_SCRIPT_URL);
+        const data = await res.json();
+        inventory = data.products || [];
+      } catch (e) {
+        console.warn('No se pudo cargar el inventario:', e);
+      }
+    }
+
+    // ── Modal personalizador ─────────────────────────────────
+    function openCustomizer(size) {
+      currentSize = size;
+      selectedFrasco = null;
+      selectedAroma = null;
+
+      document.getElementById('modal-eyebrow').textContent = 'Vela';
+      document.getElementById('modal-title').textContent = SIZE_LABELS[size];
+      document.getElementById('modal-price').textContent = '$' + PRICES[size].toLocaleString('es-CL');
+
+      renderFrascoOptions();
+      renderAromaOptions();
+      updateAddBtn();
+
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleModalClick(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+
+    // ── Opciones de frasco y aroma ───────────────────────────
+    function getFrascos() {
+      const sizeProducts = inventory.filter(p => p.size === currentSize);
+      const map = {};
+      sizeProducts.forEach(p => {
+        if (!map[p.frasco]) map[p.frasco] = false;
+        if (p.stock > 0) map[p.frasco] = true;
+      });
+      return Object.entries(map).map(([frasco, hasStock]) => ({ frasco, hasStock }));
+    }
+
+    function getAromas() {
+      if (!selectedFrasco) return [];
+      return inventory
+        .filter(p => p.size === currentSize && p.frasco === selectedFrasco)
+        .map(p => ({ aroma: p.aroma, stock: p.stock }));
+    }
+
+    function renderFrascoOptions() {
+      const container = document.getElementById('frasco-options');
+      const frascos = getFrascos();
+
+      if (frascos.length === 0) {
+        container.innerHTML = '<span style="font-size:13px;color:var(--charcoal-s)">Sin stock en este tamaño</span>';
+        return;
+      }
+
+      container.innerHTML = frascos.map(({ frasco, hasStock }) =>
+        `<button class="option-pill${!hasStock ? ' unavailable' : ''}${selectedFrasco === frasco ? ' selected' : ''}"
+          ${hasStock ? `onclick="selectFrasco('${frasco.replace(/'/g,"\\'")}' )"` : 'disabled'}>${frasco}</button>`
+      ).join('');
+    }
+
+    function renderAromaOptions() {
+      const container = document.getElementById('aroma-options');
+
+      if (!selectedFrasco) {
+        container.innerHTML = '<span style="font-size:13px;color:var(--charcoal-s)">Primero elige un frasco</span>';
+        return;
+      }
+
+      const aromas = getAromas();
+      if (aromas.length === 0) {
+        container.innerHTML = '<span style="font-size:13px;color:var(--charcoal-s)">Sin aromas disponibles</span>';
+        return;
+      }
+
+      container.innerHTML = aromas.map(({ aroma, stock }) =>
+        `<button class="option-pill${stock === 0 ? ' unavailable' : ''}${selectedAroma === aroma ? ' selected' : ''}"
+          ${stock > 0 ? `onclick="selectAroma('${aroma.replace(/'/g,"\\'")}' )"` : 'disabled'}>${aroma}</button>`
+      ).join('');
+    }
+
+    function selectFrasco(frasco) {
+      selectedFrasco = frasco;
+      selectedAroma = null;
+      renderFrascoOptions();
+      renderAromaOptions();
+      updateAddBtn();
+    }
+
+    function selectAroma(aroma) {
+      selectedAroma = aroma;
+      renderAromaOptions();
+      updateAddBtn();
+    }
+
+    function updateAddBtn() {
+      const btn = document.getElementById('btn-add-cart');
+      const stockEl = document.getElementById('modal-stock');
+
+      if (!selectedFrasco || !selectedAroma) {
+        btn.disabled = true;
+        stockEl.textContent = '';
+        return;
+      }
+
+      const product = inventory.find(p =>
+        p.size === currentSize && p.frasco === selectedFrasco && p.aroma === selectedAroma
+      );
+
+      if (product && product.stock > 0) {
+        btn.disabled = false;
+        stockEl.textContent = product.stock + ' disponible' + (product.stock > 1 ? 's' : '');
+      } else {
+        btn.disabled = true;
+        stockEl.textContent = 'Sin stock';
+      }
+    }
+
+    // ── Carrito ──────────────────────────────────────────────
+    function addToCart() {
+      if (!currentSize || !selectedFrasco || !selectedAroma) return;
+
+      cart.push({
+        id: Date.now(),
+        size: currentSize,
+        sizeLabel: SIZE_LABELS[currentSize],
+        frasco: selectedFrasco,
+        aroma: selectedAroma,
+        price: PRICES[currentSize]
+      });
+
+      updateCartUI();
+      closeModal();
+      openCartDrawer();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById('cart-badge');
+      const list = document.getElementById('cart-items-list');
+      const totalEl = document.getElementById('cart-total-amount');
+      const checkoutBtn = document.getElementById('btn-checkout');
+
+      badge.textContent = cart.length;
+      badge.classList.toggle('visible', cart.length > 0);
+
+      if (cart.length === 0) {
+        list.innerHTML = '<p class="cart-empty">Tu carrito está vacío</p>';
+        checkoutBtn.disabled = true;
+      } else {
+        list.innerHTML = cart.map(item =>
+          `<div class="cart-item">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.sizeLabel.toUpperCase()}</div>
+              <div class="cart-item-detail">${item.frasco} · ${item.aroma}</div>
+            </div>
+            <span class="cart-item-price">$${item.price.toLocaleString('es-CL')}</span>
+            <button class="cart-item-remove" onclick="removeFromCart(${item.id})">×</button>
+          </div>`
+        ).join('');
+        checkoutBtn.disabled = false;
+      }
+
+      const total = cart.reduce((sum, i) => sum + i.price, 0);
+      totalEl.textContent = '$' + total.toLocaleString('es-CL');
+    }
+
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const scrim = document.getElementById('cart-scrim');
+      const isOpen = drawer.classList.contains('open');
+      drawer.classList.toggle('open', !isOpen);
+      scrim.classList.toggle('open', !isOpen);
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    function openCartDrawer() {
+      document.getElementById('cart-drawer').classList.add('open');
+      document.getElementById('cart-scrim').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── Checkout: abre formulario de datos ───────────────────
+    function checkout() {
+      if (cart.length === 0) return;
+      openCheckoutFormModal();
+    }
+
+    function openCheckoutFormModal() {
+      const subtotal = cart.reduce((sum, i) => sum + i.price, 0);
+      document.getElementById('ch-subtotal').textContent = '$' + subtotal.toLocaleString('es-CL');
+      document.getElementById('ch-total').textContent = '$' + subtotal.toLocaleString('es-CL');
+      document.getElementById('ch-shipping-label').textContent = '—';
+      // Reset form
+      document.getElementById('ch-nombre').value = '';
+      document.getElementById('ch-telefono').value = '';
+      document.getElementById('ch-direccion').value = '';
+      document.querySelectorAll('input[name="shipping"]').forEach(r => r.checked = false);
+      document.querySelectorAll('.shipping-opt').forEach(el => el.classList.remove('selected'));
+      document.getElementById('address-group').style.display = 'none';
+      document.getElementById('checkout-form-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckoutFormModal() {
+      document.getElementById('checkout-form-overlay').classList.remove('open');
+      document.body.style.overflow = 'hidden'; // cart sigue abierto
+    }
+
+    function onShippingChange(label) {
+      document.querySelectorAll('.shipping-opt').forEach(el => el.classList.remove('selected'));
+      label.classList.add('selected');
+      const radio = label.querySelector('input[type="radio"]');
+      radio.checked = true;
+      const price = parseInt(radio.dataset.price) || 0;
+      const needsAddress = radio.dataset.needsAddress === 'true';
+      document.getElementById('address-group').style.display = needsAddress ? 'block' : 'none';
+      const subtotal = cart.reduce((sum, i) => sum + i.price, 0);
+      const total = subtotal + price;
+      const shippingText = price > 0 ? '$' + price.toLocaleString('es-CL') :
+        radio.value.startsWith('retiro') ? 'Gratis' : 'Por pagar en destino';
+      document.getElementById('ch-shipping-label').textContent = shippingText;
+      document.getElementById('ch-total').textContent = '$' + total.toLocaleString('es-CL');
+    }
+
+    function confirmCheckout() {
+      const nombre = document.getElementById('ch-nombre').value.trim();
+      const telefono = document.getElementById('ch-telefono').value.trim();
+      const shippingEl = document.querySelector('input[name="shipping"]:checked');
+      if (!nombre) { alert('Por favor ingresa tu nombre.'); return; }
+      if (!telefono) { alert('Por favor ingresa tu teléfono.'); return; }
+      if (!shippingEl) { alert('Por favor selecciona una opción de envío.'); return; }
+      const needsAddress = shippingEl.dataset.needsAddress === 'true';
+      const direccion = document.getElementById('ch-direccion').value.trim();
+      if (needsAddress && !direccion) { alert('Por favor ingresa tu dirección de despacho.'); return; }
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'TU_URL_APPS_SCRIPT_AQUI') {
+        alert('El sistema de pago aún no está configurado. Por favor escríbenos por WhatsApp.');
+        return;
+      }
+      const cartData = cart.map(item => ({
+        size: item.sizeLabel, frasco: item.frasco, aroma: item.aroma, price: item.price
+      }));
+      const customerData = {
+        nombre, telefono, direccion,
+        envio: shippingEl.value,
+        shippingPrice: parseInt(shippingEl.dataset.price) || 0
+      };
+      const btn = document.getElementById('btn-confirm-checkout');
+      btn.disabled = true;
+      btn.textContent = 'Procesando...';
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = APPS_SCRIPT_URL;
+      form.target = '_blank';
+      [['cart', JSON.stringify(cartData)], ['customer', JSON.stringify(customerData)]].forEach(([name, val]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden'; input.name = name; input.value = val;
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+      setTimeout(() => { btn.disabled = false; btn.textContent = 'Ir a pagar →'; }, 4000);
+    }
+
+    // ── Init ─────────────────────────────────────────────────
+    loadInventory();
   </script>
 </body>
 </html>
